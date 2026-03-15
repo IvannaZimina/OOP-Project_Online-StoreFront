@@ -121,17 +121,13 @@ With more time, I would add a discount or coupon system (a good use case for the
 ## 9. How to Run the Program
 1. Ensure you have Python 3.8 or higher installed.
 2. Clone the repository and navigate to the project directory.
-3. Run the main program:
-```python main.py
-```
+3. Run the main program: **python main.py**
 4. Follow the prompts to browse products, add to cart, and checkout.
-5. To run the tests:
-```python -m pytest tests/ -v
-```
+5. To run the tests: **python -m pytest tests/ -v**
 All tests should pass successfully.
 
 ## Expected output in Console
-```
+`
 =======================================================
   Python Online Storefront — Product Catalog
 =======================================================
@@ -189,4 +185,4 @@ Order #2
   [P003] Mechanical Keyboard: 13 left
   [D001] Python OOP Guide (eBook): 99 left
   [D002] Web Development Course: 49 left
-  ```
+  `
