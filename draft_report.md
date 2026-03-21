@@ -198,6 +198,8 @@ This helps quickly understand the purpose of the code without reading all implem
 
 ## Classes Demonstrating Class Design and OOP Principles
 
+These files can still be improved later, because at this stage the report covers mainly the first three sections, focused on class design and core OOP principles.
+
 | Class | Why it is relevant |
 |---|---|
 | `Product`, `PhysicalProduct`, `DigitalProduct` | Core example of abstraction, inheritance, and polymorphism ([product.py](product.py)). |
