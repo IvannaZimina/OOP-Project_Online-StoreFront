@@ -5,6 +5,7 @@ class CartItem:
         self._product = product
         self._quantity = quantity
 
+    # --- Getters (Encapsulation) ---
     @property
     def product(self):
         return self._product
@@ -13,6 +14,7 @@ class CartItem:
     def quantity(self) -> int:
         return self._quantity
 
+    # --- Setter ---
     @quantity.setter
     def quantity(self, value: int):
         if value < 1:
@@ -20,9 +22,11 @@ class CartItem:
         self._quantity = value
 
     def get_subtotal(self) -> float:
+        """Return the line subtotal: product price multiplied by quantity."""
         return round(self._product.price * self._quantity, 2)
 
     def __str__(self) -> str:
+        """Return a readable string for one cart line with subtotal."""
         return f"{self._product.name} x{self._quantity} = ${self.get_subtotal():.2f}"
 
 

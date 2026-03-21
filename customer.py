@@ -7,6 +7,7 @@ class Customer:
         self._email = email
         self._orders: list = []
 
+    # --- Getters (Encapsulation) ---
     @property
     def customer_id(self) -> str:
         return self._customer_id
@@ -20,10 +21,13 @@ class Customer:
         return self._email
 
     def add_order(self, order):
+        """Add a new order to the customer's order history."""
         self._orders.append(order)
 
     def get_orders(self) -> list:
+        """Return a copy of the customer's orders."""
         return list(self._orders)
 
     def __str__(self) -> str:
+        """Return a readable customer summary (name and email)."""
         return f"Customer: {self._name} | Email: {self._email}"

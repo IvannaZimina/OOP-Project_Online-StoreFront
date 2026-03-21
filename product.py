@@ -24,15 +24,23 @@ class Product(ABC):
     def price(self) -> float:
         return self._price
 
+    @property
+    def stock(self) -> int:
+        return self._stock
+
+    # --- Setters (Encapsulation) ---
+
     @price.setter
     def price(self, value: float):
         if value < 0:
             raise ValueError("Price cannot be negative.")
         self._price = value
 
-    @property
-    def stock(self) -> int:
-        return self._stock
+    @stock.setter
+    def stock(self, value: int):
+        if value < 0:
+            raise ValueError("Stock cannot be negative.")
+        self._stock = value
 
     def reduce_stock(self, quantity: int):
         """Decrease available stock after a purchase."""
@@ -57,7 +65,7 @@ class Product(ABC):
 
 
 class PhysicalProduct(Product):
-    """A tangible product that requires shipping."""
+    """A physical product that requires shipping."""
 
     def __init__(self, product_id: str, name: str, price: float, stock: int, weight_kg: float):
         super().__init__(product_id, name, price, stock)

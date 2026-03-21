@@ -1,7 +1,7 @@
 from enum import Enum
 from datetime import datetime
 
-
+# Allowed order statuses.
 class OrderStatus(Enum):
     PENDING = "Pending"
     CONFIRMED = "Confirmed"
@@ -59,7 +59,7 @@ class Order:
     # --- Status update ---
 
     def update_status(self, new_status: OrderStatus):
-        self._status = new_status
+        self._status = new_status # from OrderStatus enum
 
     def __str__(self) -> str:
         lines = [
