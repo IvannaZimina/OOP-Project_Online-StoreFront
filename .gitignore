@@ -24,6 +24,7 @@ Thumbs.db
 .vscode/
 
 # Reports
+report.html
 draft_report.md
 
 # Notebook
