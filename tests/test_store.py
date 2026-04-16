@@ -20,6 +20,9 @@ from customer import Customer
 from factory import ProductFactory
 from store import Store
 from order import Order, OrderStatus
+from checkout_processor import CheckoutProcessor
+from inventory import InventoryManager
+from orders import OrderManager
 
 
 # ===================================================================== #
@@ -123,6 +126,7 @@ class TestCart(unittest.TestCase):
 class TestCheckout(unittest.TestCase):
 
     def setUp(self):
+        self.checkout_processor = CheckoutProcessor()
         self.store = Store("Test Store")
         self.product = PhysicalProduct("P001", "Gadget", 50.00, 10, 0.5)
         self.store.add_product(self.product)
@@ -131,27 +135,27 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_returns_order(self):
         self.cart.add_product(self.product, 2)
-        order = self.store.checkout(self.customer, self.cart)
+        order = self.checkout_processor.process_checkout(self.customer, self.cart, self.store._orders)
         self.assertIsInstance(order, Order)
 
     def test_order_total_is_correct(self):
         self.cart.add_product(self.product, 2)
-        order = self.store.checkout(self.customer, self.cart)
+        order = self.checkout_processor.process_checkout(self.customer, self.cart, self.store._orders)
         self.assertAlmostEqual(order.total, 100.00)
 
     def test_order_default_status_is_pending(self):
         self.cart.add_product(self.product, 1)
-        order = self.store.checkout(self.customer, self.cart)
+        order = self.checkout_processor.process_checkout(self.customer, self.cart, self.store._orders)
         self.assertEqual(order.status, OrderStatus.PENDING)
 
     def test_checkout_reduces_stock(self):
         self.cart.add_product(self.product, 3)
-        self.store.checkout(self.customer, self.cart)
+        self.checkout_processor.process_checkout(self.customer, self.cart, self.store._orders)
         self.assertEqual(self.product.stock, 7)
 
     def test_checkout_clears_cart(self):
         self.cart.add_product(self.product, 1)
-        self.store.checkout(self.customer, self.cart)
+        self.checkout_processor.process_checkout(self.customer, self.cart, self.store._orders)
         self.assertTrue(self.cart.is_empty())
 
     def test_checkout_empty_cart_raises(self):
