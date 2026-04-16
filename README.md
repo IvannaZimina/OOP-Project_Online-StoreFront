@@ -59,22 +59,22 @@ Store
   |-- uses --> Cart
   |-- receives --> Customer
   |-- creates --> Order
+  |-- delegates checkout to --> CheckoutProcessor
+  |-- uses --> InventoryManager
+  |-- uses --> OrderManager
 
 Order
   |-- uses status --> OrderStatus
 ```
 
-| Class A | Relation | Class B | Why this relation exists |
-|---|---|---|---|
-| `PhysicalProduct` | inherits from | `Product` | Reuses common product logic and overrides specific behavior. |
-| `DigitalProduct` | inherits from | `Product` | Same base interface, different shipping behavior. |
-| `Cart` | contains | `CartItem` | Cart is built from line items. |
-| `CartItem` | references | `Product` | Each line item stores product + quantity. |
-| `Store` | manages catalog of | `Product` | Store keeps all products in one place. |
-| `Store` | uses | `Cart` | Checkout reads selected items from cart. |
-| `Store` | receives | `Customer` | Checkout is done for a specific customer. |
-| `Store` | creates | `Order` | Final result of checkout is a new order. |
-| `Order` | uses | `OrderStatus` | Order state is controlled by enum values. |
+| Class A              | Relation               | Class B           | Why this relation exists                              |
+|----------------------|------------------------|-------------------|-----------------------------------------------------|
+| `PhysicalProduct`    | inherits from          | `Product`         | Reuses common product logic and overrides specific behavior. |
+| `DigitalProduct`     | inherits from          | `Product`         | Same base interface, different shipping behavior.   |
+| `Cart`               | contains               | `CartItem`        | Cart is built from line items.                      |
+| `CartItem`           | references             | `Product`         | Each line item stores product + quantity.           |
+| `Store`              | coordinates            | `Product`, `Cart`, `Customer`, `Order`, `CheckoutProcessor`, `InventoryManager`, `OrderManager` | Central class coordinating catalog, cart, checkout, and order management. |
+| `Order`              | uses                   | `OrderStatus`     | Order state is controlled by enum values.           |
 
 This section shows both a simple structure diagram and a direct relation table, so it is easy to see not only what classes exist, but also how they interact.
 
@@ -232,7 +232,7 @@ All tests are located in `tests/test_store.py` and use Python's built-in `unitte
 
 Running all tests:
 ```
-py -m pytest tests/ -v
+py -m unittest discover tests -v
 ```
 Result: **26 passed**.
 
@@ -240,7 +240,7 @@ Result: **26 passed**.
 
 ## 7. Challenges and Design Decisions
 
-One design decision was where to place the checkout logic. It could have lived inside `Cart`, but that would mean the cart knows about customers and order storage — violating Single Responsibility. Placing it in `Store` keeps `Cart` a pure data structure and makes `Store` the single coordinator of the purchase flow.
+One design decision was where to place the checkout logic. It could have lived inside `Cart`, but that would mean the cart knows about customers and order storage — violating Single Responsibility. The checkout flow is implemented in `CheckoutProcessor`, and in the demo it is called directly from `main.py` via `store._checkout_processor.process_checkout(...)`.
 
 Another decision was using a `CartItem` snapshot in `Order`. After checkout, the cart is cleared and stock is reduced. Storing a list of `CartItem` objects in the `Order` means the order record remains accurate even if those products are later removed from the catalog or their prices change.
 
@@ -259,7 +259,7 @@ With more time, I would add a discount or coupon system (a good use case for the
 2. Clone the repository and navigate to the project directory.
 3. Run the main program: **py main.py**
 4. Follow the prompts to browse products, add to cart, and checkout.
-5. To run the tests: **py -m pytest tests/ -v**
+5. To run the tests: **py -m unittest discover tests -v**
 All tests should pass successfully.
 
 ## Expected output in Console
@@ -322,5 +322,5 @@ Order #2
   [P003] Mechanical Keyboard: 13 left
   [D001] Python OOP Guide (eBook): 99 left
   [D002] Web Development Course: 49 left
-  ```
+```
 
