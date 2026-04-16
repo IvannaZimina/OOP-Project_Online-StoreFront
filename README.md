@@ -238,7 +238,8 @@ Result: **6 passed**.
 
 ## 7. Challenges and Design Decisions
 
-One design decision was where to place the checkout logic. It could have lived inside `Cart`, but that would mean the cart knows about customers and order storage — violating Single Responsibility. The checkout flow is implemented in `CheckoutProcessor`, and in the demo it is called directly from `main.py` via `store._checkout_processor.process_checkout(...)`.
+One design decision was where to place the checkout logic. It could have lived inside `Cart`, but that would mean the cart knows about customers and order storage — violating Single Responsibility.  
+The checkout flow is implemented in `CheckoutProcessor`, and in the demo it is called directly from `main.py` via `store._checkout_processor.process_checkout(...)`.
 
 Another decision was using a `CartItem` snapshot in `Order`. After checkout, the cart is cleared and stock is reduced. Storing a list of `CartItem` objects in the `Order` means the order record remains accurate even if those products are later removed from the catalog or their prices change.
 
@@ -248,9 +249,12 @@ The `OrderStatus` enum was chosen over plain strings to prevent typos and make s
 
 ## 8. Conclusion
 
-The project successfully demonstrates all four OOP pillars in a realistic, small-scale scenario. Abstraction and polymorphism are combined through the `Product` hierarchy so that `Cart` and `Store` never need to distinguish between product types at runtime. Encapsulation protects all object state and keeps validation in one place. Inheritance eliminates code duplication between `PhysicalProduct` and `DigitalProduct`. The Factory pattern keeps object creation centralized, and the SOLID principles result in a design where classes have clear, focused responsibilities.
+The project successfully demonstrates all four OOP pillars in a realistic, small-scale scenario.  
+Abstraction and polymorphism are combined through the `Product` hierarchy so that `Cart` and `Store` never need to distinguish between product types at runtime.  
+Encapsulation protects all object state and keeps validation in one place. Inheritance eliminates code duplication between `PhysicalProduct` and `DigitalProduct`.  
+The Factory pattern keeps object creation centralized, and the SOLID principles result in a design where classes have clear, focused responsibilities.
 
-With more time, I would add a discount or coupon system (a good use case for the Decorator pattern), persist orders and customers to a file or database, and add an interactive command-line or web interface for browsing the catalog.
+---
 
 ## 9. How to Run the Program
 1. Ensure you have Python 3.8 or higher installed.
