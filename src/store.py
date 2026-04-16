@@ -1,7 +1,7 @@
-from order import Order
-from checkout_processor import CheckoutProcessor
-from inventory import InventoryManager
-from orders import OrderManager
+from core.order import Order
+from services.checkout_processor import CheckoutProcessor
+from services.inventory import InventoryManager
+from services.orders import OrderManager
 
 
 class Store:

@@ -219,22 +219,20 @@ The system is open for extension but closed for modification:
 
 ## 6. Testing Strategy
 
-All tests are located in `tests/test_store.py` and use Python's built-in `unittest` framework. Tests are grouped into four test classes that correspond to the main components of the application.
+All tests are located in `tests/test_store.py` and use Python's built-in `unittest` framework. To keep the testing section small and clear, I focus only on the core parts: `Product` and `Cart`. The unittest assertion methods used in these tests are described in `tests/unittest_assertions.md`.
 
 **Test classes and examples:**
 
 | Test class | What is tested |
 |---|---|
-| `TestProduct` | Shipping cost formula, negative-price rejection, stock reduction, stock overflow. |
-| `TestCart` | Adding items, subtotal and shipping totals, grand total, stock guard, remove item, clear cart, accumulating quantity. |
-| `TestCheckout` | Order creation, correct total, default PENDING status, stock reduction after purchase, cart cleared after checkout, empty-cart guard, order linked to customer, status update. |
-| `TestProductFactory` | Correct types returned for "physical" and "digital", `ValueError` for unknown type. |
+| `TestProduct` | Shipping cost formula, negative-price rejection, digital product shipping. |
+| `TestCart` | Adding items, subtotal, grand total (with shipping). |
 
 Running all tests:
 ```
 py -m unittest discover tests -v
 ```
-Result: **26 passed**.
+Result: **6 passed**.
 
 ---
 

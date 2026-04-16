@@ -5,11 +5,11 @@ Run:  python main.py
 """
 
 from store import Store
-from cart import Cart
-from customer import Customer
+from core.cart import Cart
+from core.customer import Customer
 from factory import ProductFactory
-from order import OrderStatus
-from checkout_processor import CheckoutProcessor
+from core.order import OrderStatus
+from services.checkout_processor import CheckoutProcessor
 
 
 def main():

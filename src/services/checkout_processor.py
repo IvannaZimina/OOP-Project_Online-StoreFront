@@ -1,4 +1,4 @@
-from order import Order
+from core.order import Order
 
 class CheckoutProcessor:
     """Handles the checkout process for the store."""

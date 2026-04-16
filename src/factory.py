@@ -1,4 +1,4 @@
-from product import PhysicalProduct, DigitalProduct
+from core.product import PhysicalProduct, DigitalProduct
 
 
 class ProductFactory:

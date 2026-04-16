@@ -1,4 +1,4 @@
-from order import Order
+from core.order import Order
 
 class OrderManager:
     """Handles order management for the store."""
