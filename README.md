@@ -325,4 +325,6 @@ Order #2
   [D001] Python OOP Guide (eBook): 99 left
   [D002] Web Development Course: 49 left
 ```
+## Decision-Focused Flow
+<img width="676" height="932" alt="image" src="https://github.com/user-attachments/assets/61d983b0-4cab-451d-bfc9-d4bcbe0f4b4d" />
 
